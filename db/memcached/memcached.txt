@@ -1,0 +1,5 @@
+1.centos 安装
+	$yum install memcached;
+
+2.运行
+	cd /etc/rc.d/init.d

@@ -1,0 +1,96 @@
+##apache+php
+	apache把php当一个模块进行工作的
+
+
+
+##nginx+php
+	相互通讯（fastcgi）
+
+
+
+
+#下载：
+	1.#wget http://cn2.php.net/distributions/php-5.6.25.tar.gz
+	2.tar zxf ./....
+
+
+
+#需要功能 gd，mysql，ttf，png，fpm（fastcgi）方式运行
+
+
+	查看mysql配置
+	#./configure --help|grep mysql
+	# yum install gd
+
+
+./configure --prefix=/usr/local/nginx-php5.6 \
+--with-mysql \
+--with-mysqli \
+--with-gd \
+--enable-gd-native-ttf \
+--enable-gd-jis-conv \
+--enable-fpm
+
+fpm 必须
+
+configure: error: xml2-config not found. Please check your libxml2 installation.
+
+	
+	# yum install libxml2
+	如果提示已经安装过了，但是任然报错
+
+	# yum install libxml2-devel
+
+###升级mysql
+
+	#yum remove mysql mysql-*
+	#更新源#rpm -Uvh http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm
+	#yum install mysql mysql-server
+	#yum install mysql-devel libpng-devel
+
+###如果是.h少了
+	就只接安装$name-devel
+
+###准备就绪后，进行编译
+	
+	ok
+###	cp php.ini to ./lib/
+### mv php-fpm.conf-default php-fpm.conf
+### 运行php-fpm
+
+test
+
+
+
+
+##配置location
+		 location ~ \.php$ {
+                root /home/wwwroot/test/;
+                fastcgi_pass   127.0.0.1:9000;
+                fastcgi_index  index.php;
+                fastcgi_param  SCRIPT_FILENAME  /home/wwwroot/test/ $fastcgi_script_name;
+                include        fastcgi_params;
+                        
+                }
+
+nginx+php
+		nginx将php文件的请求,转发到9000端口，交给php进行处理,随后返回结果
+
+
+
+
+###配置mysql
+
+
+
+###设置php时区
+http://php.net/date.timezone
+[Date]
+date.timezone = PRC
+中国
+
+
+
+### 开启nginx gzip
+
+

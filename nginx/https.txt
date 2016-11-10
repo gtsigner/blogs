@@ -1,0 +1,23 @@
+server {
+        listen 443;
+        ssl on;
+        ssl_certificate  /home/ssl/1_oeynet.com_bundle.crt;
+        ssl_certificate_key  /home/ssl/2_oeynet.com.key;
+        root /home/wwwroot/oeynet/public_html;
+        server_name oeynet.com www.oeynet.com;
+        index  index.html index.php index.htm;
+        location ~ \.php$ {
+                fastcgi_pass   127.0.0.1:9000;
+                fastcgi_index  index.php;
+                include fcgi.conf;
+        }
+        location ~ /\.ht {
+                deny  all;
+        }
+}
+server {
+    listen  80;                
+    server_name oeynet.com www.oeynet.com;
+    rewrite ^(.*)$  https://$host$1 permanent;  
+} 
+
