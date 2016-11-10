@@ -8,7 +8,7 @@
 
 -	网络请求：
 
-	
+```
 		 public static void getDocumentByCategory(Category cate, int p, int count, BlogListAdapter adapter) {
 	
 	        final RequestParams params = new RequestParams(uri);
@@ -51,7 +51,7 @@
 	            }
 	        });
 	    }
-	
+```	
 
 	-	我们需要把我们网络请求后的数据显示出来，那么我们要么使用消息通知，要么使用传递过来一个adapter，不知道大家是不是这么做的，至少我不懂的时候我是这么做的。
 	-	这样存在的问题就是不能交付给他自己去处理了。
@@ -76,7 +76,7 @@
 	-	API使用回调
 
 
-		
+```		
 			  public static void getDocumentByCategory(Category cate, int p, int count, final CallBackFunction func) {
 			
 			        final RequestParams params = new RequestParams(uri);
@@ -120,10 +120,10 @@
 			        });
 			    }
 
-
+```
 	-	使用方
 
-	
+```	
 			  /**
 			     * 获取数据
 			     *
@@ -148,8 +148,24 @@
 			        this.mSwipeRefreshLayout.setRefreshing(false);
 			    }
 
-
+```
 ###java还是android很多都使用的是各种listener监听器，其实他的原理就是回调
-
-
 ###只是自己对于这些方面的理解，由于还是初步的认知，先暂时这样。
+
+
+
+##2016-11-10 之前的思想纠正
+-   回过头来，我发现之前的思想有很多的错误点
+    -   比如我认为，回调函数就是异步。
+    -   比如我认为，只要加上回调这种事件驱动类型的写法，性能会有很大提升
+
+-   回调不绝对是异步的IO，也不是什么多线程
+>例如NodeJS当中，大部分会使用回调函数去处理，回调嵌入回调，而Nodejs的
+>架构是单线程的，非阻塞IO的，因为他有2个很重要的东西、
+
+>1.事件队列（每一次的回调函数都会放到这个队列当中去执行）
+
+>2.线程池（进行IO请求的现成）
+
+
+
